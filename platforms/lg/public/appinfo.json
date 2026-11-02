@@ -1,0 +1,12 @@
+{
+  "id": "com.guillory.resort",
+  "version": "0.1.0",
+  "vendor": "Guillory Family",
+  "type": "web",
+  "main": "index.html",
+  "title": "The Guillory Resort",
+  "icon": "icon.png",
+  "largeIcon": "largeIcon.png",
+  "resolution": "1920x1080",
+  "disableBackHistoryAPI": true
+}

@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 720" preserveAspectRatio="xMidYMid slice">
+  <!-- Original placeholder artwork for The Guillory Resort (development use). -->
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#d9864a"/>
+      <stop offset="0.45" stop-color="#f1b46a"/>
+      <stop offset="0.75" stop-color="#f9d9a0"/>
+      <stop offset="1" stop-color="#fbe6bd"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#fff6d8" stop-opacity="0.95"/>
+      <stop offset="0.35" stop-color="#ffe2a0" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#ffd27a" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="plain" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#c89350"/>
+      <stop offset="0.5" stop-color="#a8713a"/>
+      <stop offset="1" stop-color="#6f4522"/>
+    </linearGradient>
+    <g id="acacia">
+      <path d="M-7 0 L-5 -118 L-34 -168 L-27 -171 L-3 -132 L3 -186 L10 -185 L6 -128 L38 -166 L44 -161 L8 -114 L7 0 Z"/>
+      <ellipse cx="-48" cy="-176" rx="72" ry="15"/>
+      <ellipse cx="22" cy="-192" rx="88" ry="18"/>
+      <ellipse cx="-12" cy="-204" rx="62" ry="13"/>
+      <ellipse cx="66" cy="-172" rx="50" ry="12"/>
+      <ellipse cx="-90" cy="-170" rx="30" ry="8"/>
+    </g>
+  </defs>
+
+  <rect width="1920" height="720" fill="url(#sky)"/>
+  <circle cx="1290" cy="420" r="330" fill="url(#glow)"/>
+  <circle cx="1290" cy="420" r="78" fill="#fff4d2"/>
+
+  <!-- distant ridges -->
+  <path d="M0 450 C180 400 330 420 480 395 C640 368 760 410 900 400 C1080 386 1180 360 1340 392 C1500 424 1650 380 1920 410 L1920 720 L0 720 Z" fill="#c98f62" opacity="0.55"/>
+  <path d="M0 480 C220 452 380 470 560 455 C760 438 900 470 1100 462 C1300 454 1500 440 1700 458 C1800 467 1860 462 1920 456 L1920 720 L0 720 Z" fill="#b2774a" opacity="0.7"/>
+
+  <!-- savanna plain -->
+  <path d="M0 505 C300 490 620 500 960 494 C1300 488 1620 498 1920 490 L1920 720 L0 720 Z" fill="url(#plain)"/>
+
+  <!-- trees -->
+  <g fill="#3a2414">
+    <use xlink:href="#acacia" transform="translate(150 512) scale(0.42)" opacity="0.75"/>
+    <use xlink:href="#acacia" transform="translate(860 500) scale(0.3)" opacity="0.65"/>
+    <use xlink:href="#acacia" transform="translate(1030 503) scale(0.36)" opacity="0.7"/>
+    <use xlink:href="#acacia" transform="translate(1720 520) scale(1.05)"/>
+    <use xlink:href="#acacia" transform="translate(460 560) scale(1.5)"/>
+  </g>
+
+  <!-- birds -->
+  <g fill="none" stroke="#5a3418" stroke-width="3" stroke-linecap="round" opacity="0.7">
+    <path d="M1080 230 q12 -10 24 0 q12 -10 24 0"/>
+    <path d="M1150 200 q9 -8 18 0 q9 -8 18 0"/>
+    <path d="M1010 270 q8 -7 16 0 q8 -7 16 0"/>
+  </g>
+
+  <!-- foreground grass -->
+  <path d="M0 640 L40 600 L60 632 L95 590 L120 628 L160 596 L190 634 L230 602 L260 630 L310 598 L340 636 L390 606 L420 640 L480 612 L520 642 L580 616 L640 646 L700 620 L760 650 L840 626 L900 652 L980 630 L1060 656 L1140 632 L1220 652 L1300 628 L1360 648 L1420 622 L1480 644 L1540 616 L1600 640 L1650 610 L1700 636 L1750 604 L1800 632 L1850 600 L1890 628 L1920 606 L1920 720 L0 720 Z" fill="#5c3a1c"/>
+</svg>

@@ -1,0 +1,571 @@
+/*
+ * The Guillory Resort, authored on a 1920×1080 grid where 1rem = 16px.
+ * ui/dom.ts#fitStage rescales the root font size for other 16:9 screens.
+ * Avoids flex `gap`, `inset`, `aspect-ratio` and `backdrop-filter` for older webOS browsers.
+ */
+
+:root {
+  --espresso: #2a1a10;
+  --espresso-2: #3d2717;
+  --gold: #c9a24e;
+  --gold-bright: #f4d27a;
+  --gold-deep: #8a5a17;
+  --cream: #f6ecd6;
+  --parchment: #efe1c3;
+  --copper: #a8552c;
+  --copper-dark: #7c3a1b;
+  --ink: #2e1e13;
+  --serif: Georgia, 'Times New Roman', 'Noto Serif', serif;
+  --sans: 'LG Smart UI', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  --header-h: 4.25rem;
+  --welcome-h: 9.5rem;
+  --dock-h: 10.5rem;
+  --safe-x: 6rem; /* ~5% overscan-safe margin */
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+}
+
+body {
+  font-family: var(--sans);
+  color: var(--cream);
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  margin: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  outline: none; /* replaced by the explicit .is-focused treatment */
+}
+
+.stage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 120rem;
+  height: 67.5rem;
+  margin: -33.75rem 0 0 -60rem;
+  overflow: hidden;
+  background: var(--espresso);
+}
+
+/* ---------- Top header ---------- */
+
+.top-header {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: var(--header-h);
+  padding: 0 var(--safe-x);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--espresso);
+  background-image: url('./assets/pattern-header.svg');
+  background-size: 2.25rem 2.25rem;
+  border-bottom: 0.125rem solid var(--gold);
+  box-sizing: border-box;
+}
+
+.top-header__title {
+  font-family: var(--serif);
+  font-size: 1.75rem;
+  letter-spacing: 0.3em;
+  color: var(--gold-bright);
+  text-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.6);
+}
+
+.top-header__view {
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  color: var(--parchment);
+  padding: 0.375rem 1rem;
+  border: 0.0625rem solid rgba(201, 162, 78, 0.6);
+  background: rgba(42, 26, 16, 0.75);
+}
+
+/* ---------- Welcome band ---------- */
+
+.welcome-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: var(--header-h);
+  height: var(--welcome-h);
+  padding: 0 var(--safe-x);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  background: linear-gradient(180deg, #b3602f 0%, var(--copper) 45%, var(--copper-dark) 100%);
+  border-bottom: 0.1875rem solid #4a2412;
+  box-shadow: inset 0 0.125rem 0 rgba(255, 220, 170, 0.25);
+}
+
+.welcome-bar__line {
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0.4em;
+  color: var(--cream);
+  opacity: 0.92;
+}
+
+.welcome-bar__family {
+  margin-top: 0.25rem;
+  white-space: nowrap;
+}
+
+.welcome-bar__name {
+  font-family: var(--serif);
+  font-size: 4.25rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #fff4dc;
+  text-shadow: 0 0.1875rem 0.375rem rgba(60, 20, 5, 0.55);
+}
+
+.welcome-bar__suffix {
+  margin-left: 1rem;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 3.25rem;
+  color: var(--gold-bright);
+  text-shadow: 0 0.125rem 0.25rem rgba(60, 20, 5, 0.5);
+}
+
+.welcome-bar__info {
+  display: flex;
+  align-items: center;
+  color: var(--cream);
+}
+
+.welcome-bar__divider {
+  width: 0.125rem;
+  height: 4.5rem;
+  margin: 0 2rem;
+  background: rgba(255, 236, 200, 0.45);
+}
+
+.weather {
+  display: flex;
+  align-items: center;
+}
+
+.weather__icon {
+  display: block;
+  width: 3.5rem;
+  height: 3.5rem;
+  color: var(--gold-bright);
+}
+
+.weather__icon svg,
+.dock__icon svg,
+.card__icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.weather__temp {
+  margin-left: 0.75rem;
+  font-size: 2.5rem;
+  font-weight: 300;
+}
+
+.clock {
+  text-align: right;
+}
+
+.clock__time {
+  font-size: 3rem;
+  font-weight: 300;
+  line-height: 1.05;
+}
+
+.clock__date {
+  font-size: 1.375rem;
+  letter-spacing: 0.05em;
+  opacity: 0.9;
+}
+
+/* ---------- Scenic hero ---------- */
+
+.hero {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(var(--header-h) + var(--welcome-h));
+  bottom: var(--dock-h);
+  background-color: #c98a4f;
+  background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 60%, rgba(25, 12, 4, 0.45) 100%),
+    url('./assets/savanna.svg');
+  background-size: cover;
+  background-position: center;
+}
+
+.hero__ribbon {
+  position: absolute;
+  left: var(--safe-x);
+  bottom: 2.25rem;
+  height: 3.25rem;
+  line-height: 3.25rem;
+  padding: 0 2rem 0 1.5rem;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.5rem;
+  color: var(--cream);
+  background: rgba(36, 21, 11, 0.88);
+  border-left: 0.375rem solid var(--gold);
+  white-space: nowrap;
+}
+
+/* swallowtail end */
+.hero__ribbon::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -1.5rem;
+  border-style: solid;
+  border-width: 1.625rem 1.5rem 1.625rem 0;
+  border-color: rgba(36, 21, 11, 0.88) transparent rgba(36, 21, 11, 0.88) transparent;
+}
+
+/* ---------- Bottom dock ---------- */
+
+.dock {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--dock-h);
+  padding: 0 var(--safe-x);
+  box-sizing: border-box;
+  background: linear-gradient(180deg, #f8efdc 0%, var(--parchment) 100%);
+  border-top: 0.25rem solid var(--gold);
+  box-shadow: 0 -0.5rem 1.5rem rgba(0, 0, 0, 0.35);
+}
+
+.dock__items {
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.dock__item {
+  flex: 1 1 0;
+  height: 7.75rem;
+  padding: 0 0.625rem;
+  color: var(--ink);
+  border-left: 0.0625rem solid rgba(90, 60, 30, 0.25);
+}
+
+.dock__item:first-child {
+  border-left: 0;
+}
+
+.dock__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  box-sizing: border-box;
+  border: 0.1875rem solid transparent;
+  border-radius: 0.75rem;
+  transition: transform 0.12s ease-out, background-color 0.12s;
+}
+
+.dock__icon {
+  display: block;
+  width: 3.25rem;
+  height: 3.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--copper-dark);
+}
+
+.dock__label {
+  font-size: 1.625rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+/* Focus: gold fill + dark border + lift + underline marker (not color alone). */
+.dock__item.is-focused .dock__inner {
+  background: linear-gradient(180deg, #f2cd72 0%, #d9a33f 100%);
+  border-color: var(--gold-deep);
+  box-shadow: 0 0.5rem 1rem rgba(90, 55, 10, 0.35);
+  transform: translateY(-0.375rem);
+}
+
+.dock__item.is-focused .dock__icon {
+  color: var(--ink);
+}
+
+.dock__item.is-focused .dock__label {
+  text-decoration: underline;
+  text-decoration-thickness: 0.1875rem;
+  text-underline-offset: 0.375rem;
+}
+
+/* The section whose overlay is open keeps a quieter selected state. */
+.dock__item.is-active .dock__inner {
+  background: rgba(217, 163, 63, 0.35);
+  border-color: rgba(138, 90, 23, 0.6);
+}
+
+/* ---------- Overlay panel ---------- */
+
+.overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(var(--header-h) + var(--welcome-h));
+  bottom: var(--dock-h);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.18s ease-out, visibility 0s linear 0.18s;
+}
+
+.overlay.is-open {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.18s ease-out;
+}
+
+.panel {
+  padding: 2.5rem 3.5rem 3rem;
+  text-align: center;
+  background: rgba(38, 23, 13, 0.92);
+  border: 0.1875rem solid var(--gold);
+  border-radius: 0.5rem;
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.55), inset 0 0 0 0.5rem rgba(38, 23, 13, 0.92),
+    inset 0 0 0 0.5625rem rgba(201, 162, 78, 0.45);
+  transform: scale(0.97);
+  transition: transform 0.18s ease-out;
+}
+
+.overlay.is-open .panel {
+  transform: scale(1);
+}
+
+.panel__heading {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 3rem;
+  letter-spacing: 0.22em;
+  color: var(--gold-bright);
+}
+
+.panel__subtitle {
+  margin: 0.5rem 0 2.25rem;
+  font-size: 1.625rem;
+  color: var(--cream);
+  opacity: 0.9;
+}
+
+.panel--placeholder .panel__subtitle {
+  margin-bottom: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.panel__note {
+  max-width: 44rem;
+  margin: 0 auto 2.25rem;
+  font-size: 1.5rem;
+  line-height: 1.4;
+  color: var(--cream);
+}
+
+.panel__cards {
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 20rem;
+  height: 14rem;
+  margin: 0 1rem;
+  box-sizing: border-box;
+  color: var(--cream);
+  background: linear-gradient(180deg, #4d3020 0%, #352013 100%);
+  border: 0.125rem solid rgba(201, 162, 78, 0.45);
+  border-radius: 0.75rem;
+  transition: transform 0.12s ease-out, box-shadow 0.12s, border-color 0.12s;
+}
+
+.panel__cards--4 .card {
+  width: 16.5rem;
+}
+
+.card__icon {
+  display: block;
+  width: 4.5rem;
+  height: 4.5rem;
+  margin-bottom: 1.25rem;
+  color: var(--gold);
+}
+
+.card__label {
+  font-size: 2.125rem;
+  font-weight: 600;
+}
+
+.card--wordmark .card__label {
+  font-size: 2.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/*
+ * Explicit box: logos with only a viewBox have no intrinsic size, and older
+ * webOS Chromium collapses them to 0×0 under max-width/max-height alone.
+ */
+.card__logo {
+  display: block;
+  width: 12.5rem;
+  height: 5.5rem;
+  object-fit: contain;
+}
+
+.card--logo.is-focused {
+  background: linear-gradient(180deg, #24160d 0%, #120a05 100%);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.card--close {
+  width: 22rem;
+  height: 6.5rem;
+  flex-direction: row;
+}
+
+.card--close .card__icon {
+  width: 2.75rem;
+  height: 2.75rem;
+  margin: 0 1rem 0 0;
+}
+
+.card--close .card__label {
+  font-size: 1.875rem;
+}
+
+/* Focus: bright gold ring + lift + marker below (not color alone). */
+.card.is-focused {
+  border-color: var(--gold-bright);
+  box-shadow: 0 0 0 0.3125rem var(--gold-bright), 0 1.25rem 2rem rgba(0, 0, 0, 0.5);
+  transform: translateY(-0.5rem);
+}
+
+.card.is-focused .card__icon {
+  color: var(--gold-bright);
+}
+
+.card.is-focused::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -1.5rem;
+  margin-left: -0.625rem;
+  border-style: solid;
+  border-width: 0 0.625rem 0.625rem;
+  border-color: transparent transparent var(--gold-bright);
+}
+
+/* ---------- Notice dialog ---------- */
+
+.notice {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 5, 2, 0.45);
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.15s, visibility 0s linear 0.15s;
+}
+
+.notice.is-open {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.15s;
+}
+
+.notice__box {
+  width: 50rem;
+  padding: 2.5rem 3rem;
+  box-sizing: border-box;
+  text-align: center;
+  background: rgba(38, 23, 13, 0.97);
+  border: 0.1875rem solid var(--gold);
+  border-radius: 0.5rem;
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.6);
+}
+
+.notice__title {
+  margin: 0 0 1rem;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 2.25rem;
+  color: var(--gold-bright);
+}
+
+.notice__message {
+  margin: 0 0 0.75rem;
+  font-size: 1.75rem;
+  line-height: 1.4;
+}
+
+.notice__detail {
+  margin: 0 0 0.75rem;
+  font-size: 1.25rem;
+  opacity: 0.75;
+}
+
+.notice__dismiss {
+  margin-top: 1.25rem;
+  min-width: 12rem;
+  padding: 0.875rem 2rem;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--ink);
+  background: linear-gradient(180deg, #f2cd72 0%, #d9a33f 100%);
+  border: 0.1875rem solid var(--gold-deep);
+  border-radius: 0.5rem;
+  box-shadow: 0 0 0 0.25rem rgba(244, 210, 122, 0.5);
+}
