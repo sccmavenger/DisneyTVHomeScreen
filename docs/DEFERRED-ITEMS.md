@@ -52,8 +52,41 @@ These are tracked as separate future candidates; their scope and priority have n
 | D-005 | Family Photos and slideshow | Placeholder today; decide photo source, privacy, and display behavior. |
 | D-006 | Resort Views and theme switching | Placeholder today; use original or properly licensed assets. |
 | D-007 | LG Channels and TV favorites | LG Channels app launch ID unavailable on current device; cross-service channel aggregation not in V1. |
-| D-008 | Additional TV platforms | Vizio is research-only; assess TV-native installation without extra hardware or manufacturer partnerships. |
+| D-008 | Vizio TV support | Deferred pending a retail SmartCast/Conjure proof of concept and device compatibility testing; see detailed scope below. |
 | D-009 | Production distribution and commercialization | Explicitly postponed until owner approves moving beyond Developer Mode. |
+
+## D-008 — Vizio TV support
+
+**Status:** Deferred — research completed; hardware validation pending  
+**Priority:** To be decided  
+**Target:** Run The Guillory Resort on a consumer Vizio TV without a streaming stick, extra hardware, or mandatory manufacturer partnership.
+
+### Research findings
+- Vizio SmartCast development workflows include HTML/JavaScript applications, Conjure launch mechanisms, provisioned developer TVs, and Chrome DevTools debugging.
+- Professional developer documentation describes Vizio-enabled development configurations, but no verified LG-style self-service Developer Mode activation was established for retail TVs.
+- Some SmartCast generations have documented methods to launch hosted HTML applications on retail devices using local-network pairing and Conjure. This is **not** equivalent to permanently installing a native app or replacing Vizio's home screen.
+- Actual support on the owner's Vizio model/firmware is unknown until the TV is available.
+- Remote hardware testing services such as TV Labs may be an option, subject to access, cost, and device availability.
+
+### Future validation plan
+1. Record Vizio model number, firmware version, and SmartCast/Vizio Home generation.
+2. Verify whether the model supports the documented Conjure pairing and hosted-app launch workflow.
+3. Test the existing shared Resort interface in the TV runtime.
+4. Verify Vizio remote navigation, focus, Back behavior, performance, and video playback.
+5. Test launching installed streaming apps and returning to the Resort.
+6. Determine whether persistent installation, startup, or an app tile is officially available without a manufacturer relationship.
+7. Evaluate professional development access or remote hardware labs only if needed.
+
+### Decision / exit criteria
+- Do not claim support or implement a production Vizio adapter until the retail-TV proof of concept succeeds.
+- No extra customer hardware, rooting, or unsupported firmware modifications.
+- If retail Conjure launching is incompatible or too limited, leave Vizio deferred and document the blocker.
+
+### Research references
+- [TrueX Vizio SmartCast reference app](https://github.com/socialvibe/truex-ctv-web-reference-app/blob/develop/platforms/Vizio/README.md)
+- [TV Labs SmartCast platform documentation](https://docs.tvlabs.ai/platform/platforms/smartcast)
+- [BlackBox QA Vizio installation guide](https://www.blackboxqa.ca/vizio-installation)
+- [get-air/vizio open-source SmartCast control library](https://github.com/get-air/vizio)
 
 ## Backlog maintenance
 
